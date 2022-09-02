@@ -14,7 +14,7 @@ export default function Seacrh(){
             method: 'GET',
             headers: {
               'X-User-Agent': 'desktop',
-              'X-Proxy-Location': 'IN',
+              'X-Proxy-Location': 'SG',
               'X-RapidAPI-Key': '0c0b9dcc3emsh71bc1794699a15ep157b83jsn53ad44415841',
               'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
             }
@@ -27,7 +27,7 @@ export default function Seacrh(){
           setAnswer(resAnswer)
           setResult(resResult)
         }
-      // getData()
+      getData()
       
     },[url])
     useEffect(()=>{
@@ -41,21 +41,19 @@ export default function Seacrh(){
       setQuery(event.target.value)
     }
   return(
-    <div className="container mx-auto relative">
-      <div className="shadow-md shadow-red-300 w-full fixed top-0 left-0 right-0 bg-white z-50">
-      <div className="py-5 h-20 flex justify-evenly px-10">
-            <span className="w-1/2">
-                <h1 className="text-2xl pb-10 font-bold"><span className="text-red-500 uppercase">g</span><span>an</span><span className="text-red-500">
+    <div className="container relative">
+      <div className="shadow-md shadow-red-300 w-full fixed top-0 bg-white z-50">
+      <div className="py-5 h-20 flex w-full px-5 xl:px-10">
+            <span className="w-1/3 xl:w-1/5">
+                <h1 className="text-2xl font-bold"><span className="text-red-500 uppercase">g</span><span>an</span><span className="text-red-500">
                     teng</span></h1>
             </span>
-            <div className="flex justify-center">
-                <div className="w-1/2">
-                <form action="" className="flex justify-between pr-10">
-                    <input type="text" className="border-2 border-red-400 rounded-lg px-2" onChange={searchHandler}/>
-                    <Link to={`/${encodeQ}`} className="py-1 px-2 rounded-lg bg-red-500">Search</Link>
+              <div className="w-1/2 flex">
+                <form action="" className="flex pr-10 items-center">
+                    <input type="text" className="border-2 border-red-400 rounded-lg px-2 xl:py-1" onChange={searchHandler}/>
+                    <Link to={`/${encodeQ}`} className="px-2 xl:py-1 rounded-lg bg-red-500 ml-5">Search</Link>
                 </form>
-                </div>
-            </div>
+              </div>
       </div>
       </div>
       <div className="pt-28 w-full">
