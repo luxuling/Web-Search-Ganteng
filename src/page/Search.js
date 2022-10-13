@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -12,20 +13,24 @@ export default function Seacrh(){
         async function getData(){
           const options = {
             method: 'GET',
+            url: 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI',
+            params: {q: url.query, pageNumber: '1', pageSize: '10', autoCorrect: 'true'},
             headers: {
-              'X-User-Agent': 'desktop',
-              'X-Proxy-Location': 'SG',
-              'X-RapidAPI-Key': '0c0b9dcc3emsh71bc1794699a15ep157b83jsn53ad44415841',
-              'X-RapidAPI-Host': 'google-search3.p.rapidapi.com'
+              'X-RapidAPI-Key': '48770c843cmshdca2289cc48f3c0p1576d3jsn91458f889214',
+              'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
             }
           };
           
-          const request = await fetch(`https://google-search3.p.rapidapi.com/api/v1/search/q=${url.query}`,options)
-          const response = await request.json()
-          const resResult = response.results
-          const resAnswer = response.answers
-          setAnswer(resAnswer)
-          setResult(resResult)
+          axios.request(options).then(function (response) {
+            console.log(response.data);
+            const resResult = response.data.value
+            const resAnswer = response.data.relatedSearch
+            setAnswer(resAnswer)
+            setResult(resResult)
+          }).catch(function (error) {
+            console.error(error);
+          });
+          
         }
       getData()
       
@@ -46,7 +51,7 @@ export default function Seacrh(){
       <div className="py-5 h-20 flex w-full px-5 xl:px-10">
             <span className="w-1/3 xl:w-1/5">
                 <h1 className="text-2xl font-bold"><span className="text-red-500 uppercase">g</span><span>an</span><span className="text-red-500">
-                    teng</span></h1>
+                    teng</span><span className="text-red-500 text-xs">.merah</span></h1>
             </span>
               <div className="w-1/2 flex">
                 <form action="" className="flex pr-10 items-center">
@@ -58,7 +63,8 @@ export default function Seacrh(){
       </div>
       <div className="pt-28 w-full">
         <div className="flex justify-center shadow-md rounded-lg h-auto mx-auto w-11/12">
-          <ul className="px-4 w-full flex justify-center">
+          {result && (
+            <ul className="px-4 w-full flex justify-center">
             {result.length <= 0 ? 
                 <li className="w-11/12 pt-10 flex-1 justify-center space-y-20 animate-pulse">
                   <div className="h-2 bg-slate-400 rounded-full w-11/12"></div>
@@ -85,9 +91,9 @@ export default function Seacrh(){
                 <div>
                   {result.map((result) => {
                     return (
-                      <div className="h-28 overflow-hidden my-1 border-b border-pink-500">
+                      <div key={result.id} className="h-28 overflow-hidden my-1 border-b border-pink-500">
                         <li>
-                          <a href={result.link} className="text-red-400 hover:underline cursor-pointer text-xl font-normal" target="blank">{result.title}</a>
+                          <a href={result.url} className="text-red-400 hover:underline cursor-pointer text-xl font-normal" target="blank">{result.title}</a>
                           <p>{result.description}</p>
                         </li>
                       </div>
@@ -98,6 +104,7 @@ export default function Seacrh(){
               </div>
             }
           </ul>
+          )}
         </div>
       </div>
     </div>

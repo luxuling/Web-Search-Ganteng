@@ -17,7 +17,7 @@ export default function Home(){
         <div className="container py-32 mx-auto">
             <span>
                 <h1 className="text-center text-4xl pb-10 font-bold"><span className="text-red-500 uppercase">g</span><span>an</span><span className="text-red-500">
-                    teng</span></h1>
+                    teng</span><span className="text-red-500 text-xs">.merah</span></h1>
             </span>
             <div className="flex justify-center">
                 <div className="w-80 bg-slate-50 shadow-xl py-3 px-5 flex justify-center rounded-lg">
